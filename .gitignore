@@ -1,5 +1,6 @@
 # Assets
-assets/comments.json
+src/assets/comments.json
+src/assets/videos.json
 
 # Logs
 logs

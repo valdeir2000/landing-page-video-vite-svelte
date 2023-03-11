@@ -3,14 +3,14 @@
   import { onMount } from 'svelte';
   import Swal from 'sweetalert2';
   import logger from '../lib/logger';
+  import playlist from '../assets/videos.json';
 
   let player: any;
   let playerWrapper: HTMLElement;
   let playerEl: HTMLVideoElement;
   let actionUser: 'empty' | 'liked' | 'disliked' = 'empty';
-  let playerSrc: string = import.meta.env.VITE_VIDEO_DEFAULT;
-  let playlistIndex = -1;
-  const playlist = import.meta.env.VITE_VIDEO_PLAYLIST.split('\n').map((item: string) => item.trim()).filter((v) => v);
+  let playerSrc: string = playlist.at(0);
+  let playlistIndex = 0;
 
   onMount(() => {
     const playerWrapperRect = playerWrapper.getBoundingClientRect();
