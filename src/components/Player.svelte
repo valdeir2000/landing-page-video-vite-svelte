@@ -140,7 +140,7 @@
 }
 
 #controls {
-  grid-column: 4/span 6;
+  grid-column: 2/span 10;
   margin-top: 10px;
 }
 
@@ -174,13 +174,13 @@
 }
 
 @media screen and (min-width: 1024px) {
-  #player-wrapper {
+  #player-wrapper, #controls {
     grid-column: 3 / span 8;
   }
 }
 
 @media screen and (min-width: 1383px) {
-  #player-wrapper {
+  #player-wrapper, #controls {
     grid-column: 4 / span 6;
   }
 }
