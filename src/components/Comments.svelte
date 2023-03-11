@@ -36,7 +36,7 @@
 </script>
 
 <div class="comments-list">
-  <h3>Comentários</h3>
+  <h3>Comentários Anônimos</h3>
 
   <div>
     {#each comments as comment,k}
@@ -49,7 +49,7 @@
 </div>
 
 <div class="comment-wrapper">
-  <h3>Comentário Anônimo</h3>
+  <h3>Envie um comentário anônimo</h3>
   <textarea name="comment-content" id="comment-content" on:keydown={(e) => e.key === '13' && writeComment()}></textarea>
   <button type="button" class="plausible-event-name=Comment" on:click={writeComment}>Enviar</button>
 </div>
