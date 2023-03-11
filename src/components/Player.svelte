@@ -21,7 +21,7 @@
       autoplay: false,
       preload: 'metadata',
       fluid: true,
-      muted: true,
+      muted: false,
       width: playerWrapperRect.width - 20,
       height: playerWrapperRect.height - 20,
       userActions: {
