@@ -106,7 +106,7 @@
 }
 
 .comments-list > div {
-  height: 400px;
+  max-height: 400px;
   overflow: auto;
 }
 
