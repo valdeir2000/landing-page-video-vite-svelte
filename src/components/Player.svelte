@@ -6,14 +6,15 @@
   import playlist from '../assets/videos.json';
 
   let player: any;
-  let playerWrapper: HTMLElement;
   let playerEl: HTMLVideoElement;
   let actionUser: 'empty' | 'liked' | 'disliked' = 'empty';
   let playerSrc: string = playlist.at(0);
   let playlistIndex = 0;
 
-  onMount(() => {
-    const playerWrapperRect = playerWrapper.getBoundingClientRect();
+  onMount(() => initPlayer());
+
+  function initPlayer() {
+    const playerWrapperRect = document.querySelector('#player-wrapper').getBoundingClientRect();
 
     /* @ts-ignore */
     player = videojs(playerEl, {
@@ -49,7 +50,7 @@
     setInterval(() =>
       !player.paused() && logger('timeupdate', player.currentTime()),
     5000);
-  })
+  }
 
   /**
    * Registra ações do usuário
@@ -99,7 +100,7 @@
   }
 </script>
 
-<div id="player-wrapper" bind:this={playerWrapper}>
+<div id="player-wrapper">
   <!-- svelte-ignore a11y-media-has-caption -->
   <video id="player" class="video-js vjs-theme-forest" bind:this={playerEl}>
     <source src={playerSrc} type="video/mp4" />
