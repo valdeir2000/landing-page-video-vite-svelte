@@ -17,6 +17,10 @@ self.addEventListener('install', (ev) => {
     }));
 });
 
+self.addEventListener("activate", (event) => {
+    event.waitUntil(clients.claim());
+});
+
 /* 
  * Middleware
  */
