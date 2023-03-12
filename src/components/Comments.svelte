@@ -75,28 +75,6 @@
   width: 100%;
 }
 
-@media screen and (min-width: 1024px) {
-  .comment-wrapper {
-    grid-column: 3/span 8;
-  }
-
-  .comment-wrapper button {
-    float: right;
-    width: 250px;
-  }
-}
-
-@media screen and (min-width: 1383px) {
-  .comment-wrapper {
-    grid-column: 4/span 6;
-  }
-
-  .comment-wrapper button {
-    float: right;
-    width: 250px;
-  }
-}
-
 .comments-list {
   display: grid;
   gap: 10px;
@@ -118,5 +96,27 @@
   gap: 10px;
   margin-bottom: 10px;
   padding: 5px;
+}
+
+@media screen and (min-width: 1024px) {
+  .comments-list, .comment-wrapper {
+    grid-column: 3/span 8;
+  }
+
+  .comment-wrapper button {
+    float: right;
+    width: 250px;
+  }
+}
+
+@media screen and (min-width: 1383px) {
+  .comments-list, .comment-wrapper {
+    grid-column: 4/span 6;
+  }
+
+  .comment-wrapper button {
+    float: right;
+    width: 250px;
+  }
 }
 </style>
