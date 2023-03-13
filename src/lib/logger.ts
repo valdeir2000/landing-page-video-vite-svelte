@@ -29,7 +29,16 @@ const PLAUSIBLE_EVENTS = {
     comment: 'Comment',
     click_like: 'Like',
     click_dislike: 'Dislike',
-    click_next: 'Next Video'
+    click_next: 'Next Video',
+    loadstart: 'Load Start',
+    abort: 'Abort',
+    error: 'Error',
+    playing: 'Playing',
+    seeked: 'Seeked',
+    durationchange: 'Duration Change',
+    timeupdate: 'Time Update',
+    display_modal_comments: 'Display Modal Comments',
+    comment_none: 'Comment None'
 }
 
 /**
