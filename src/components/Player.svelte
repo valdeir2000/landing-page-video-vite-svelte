@@ -86,14 +86,21 @@
    * Exibe um modal para comentário após o vídeo
    */
   function displayModalComments() {
+    logger('display_modal_comments', 'Caixa de comentário aberta após finalização do vídeo');
+
     Swal.fire({
       inputLabel: 'Adicione um comentário anônimo',
       input: 'textarea',
       inputPlaceholder: 'Digite seu comentário aqui',
       showCancelButton: true,
+      confirmButtonText: 'Enviar'
     })
     .then((result) => {
-      if (!result.value) return;
+      if (!result.value) {
+        logger('comment_none', 'Não enviou comentário');
+        return;
+      }
+
       (document.querySelector('.comment-wrapper textarea') as HTMLTextAreaElement).value = result.value;
       (document.querySelector('.comment-wrapper button') as HTMLButtonElement).click();
     })
