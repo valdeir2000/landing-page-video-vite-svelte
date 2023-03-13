@@ -44,7 +44,7 @@ const PLAUSIBLE_EVENTS = {
 /**
  * Envia o rastreio para o código no PipeDream
  */
-function _sendPipeDream(action, data) {
+function _sendPipeDream(action: string, data: object) {
     if (location.href.indexOf('localhost') === -1) {
         fetch(
             `${import.meta.env.VITE_LOGGER_URL_PIPEDREAM}/${ user.fingerprint.length ? user.fingerprint : 'unknown' }`,
@@ -61,7 +61,7 @@ function _sendPipeDream(action, data) {
 /**
  * Envia o rastreio para Plausible
  */
-function _sendPlausible(action, data) {
+function _sendPlausible(action: string, data: object) {
     const plausibleKey = action.toLowerCase().replace(/\s/, '_');
 
     if (PLAUSIBLE_EVENTS.hasOwnProperty(plausibleKey)) {
@@ -74,7 +74,7 @@ function _sendPlausible(action, data) {
 }
 
 /** Dispatch Logger */
-export default (action, value = '') => {
+export default (action: string, value = '') => {
     const player = {};
 
     
