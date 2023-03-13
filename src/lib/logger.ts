@@ -13,9 +13,9 @@ import user from './user.js';
  * Tracker Pages and Events
  */
 const plausible = plausibleTracker({
-    domain: 'test.local',
-    trackLocalhost: false,
-    apiHost: 'https://plausible.realitybr.app'
+    domain: import.meta.env.VITE_PLAUSIBLE_DOMAIN,
+    trackLocalhost: import.meta.env.VITE_PLAUSIBLE_LOCALHOST || false,
+    apiHost: import.meta.env.VITE_PLAUSIBLE_API_HOST
 })
 plausible.trackPageview();
 
