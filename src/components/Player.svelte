@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import Swal from 'sweetalert2';
   import logger from '../lib/logger';
-  import playlist from '../assets/videos.json';
+  import playlist from '../assets/json/videos.json';
 
   let player: any;
   let playerEl: HTMLVideoElement;

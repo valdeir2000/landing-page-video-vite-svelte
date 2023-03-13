@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Swal from 'sweetalert2';
   import logger from '../lib/logger';
-  import comments from '../assets/comments.json';
+  import comments from '../assets/json/comments.json';
 
   function writeComment() {
     const comment = document.querySelector('#comment-content') as HTMLTextAreaElement;
