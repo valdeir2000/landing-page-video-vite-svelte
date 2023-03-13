@@ -1,7 +1,3 @@
-# Assets
-src/assets/comments.json
-src/assets/videos.json
-
 # Logs
 logs
 *.log
