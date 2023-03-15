@@ -109,7 +109,7 @@
 
 <div id="player-wrapper">
   <!-- svelte-ignore a11y-media-has-caption -->
-  <video id="player" class="video-js vjs-theme-forest" bind:this={playerEl}>
+  <video id="player" class="video-js vjs-theme-forest" data-clarity-mask="True" bind:this={playerEl}>
     <source src={playerSrc} type="video/mp4" />
   </video>
 </div>
