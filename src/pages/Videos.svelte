@@ -1,6 +1,7 @@
 <script>
   import Player from '../components/Player.svelte';
   import Comments from '../components/Comments.svelte';
+  import commentsDefault from '../assets/json/comments.json';
 </script>
 
 <div id="header">
@@ -12,7 +13,7 @@
 <!-- Player Here -->
 <Player />
 
-<Comments />
+<Comments comments={commentsDefault} />
 
 <style>
 #header {

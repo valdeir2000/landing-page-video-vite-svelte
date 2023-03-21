@@ -2,7 +2,6 @@
   import { tick } from 'svelte';
   import Comment from '../components/Comments.svelte';
   import posts from '../assets/json/posts.json';
-  /* import commentsDefault from '../assets/json/comments.json'; */
 
   let readerMode = false;
   let contentHeading: string;
