@@ -2,7 +2,8 @@
   import { onMount } from 'svelte';
   import Swal from 'sweetalert2';
   import logger from '../lib/logger';
-  import comments from '../assets/json/comments.json';
+
+  export let comments = [];
 
   function writeComment() {
     const comment = document.querySelector('#comment-content') as HTMLTextAreaElement;
@@ -39,6 +40,10 @@
   <h3>Comentários Anônimos</h3>
 
   <div>
+    {#if !comments.length}
+    <p>Seja o(a) primeiro(a) a comentar!</p>
+    {/if}
+
     {#each comments as comment,k}
     <div>
       <img src={`https://robohash.org/${k}`} height="32" width="32" alt="Icon people" />
