@@ -15,7 +15,7 @@
 <Comments />
 
 <style>
-  #header {
+#header {
   margin: 0 auto;
   text-align: center;
   grid-column: auto/span 12;
