@@ -1,5 +1,6 @@
 <script lang="ts">
   import { tick } from 'svelte';
+  import logger from '../lib/logger';
   import Comment from '../components/Comments.svelte';
   import posts from '../assets/json/posts.json';
 
@@ -12,6 +13,12 @@
     await tick();
 
     const post = posts.filter((post) => post.id === id).at(0);
+
+    const currentPage = new URL(location.href);
+    currentPage.searchParams.set('post-name', post.title);
+    window.history.pushState({}, '', currentPage.toString());
+
+    logger('post_reader', `Começou a ler o post "${post.title}"`);
 
     fetch(`/posts/${id}.html`)
       .then((res) => res.text())
