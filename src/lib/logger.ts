@@ -9,15 +9,22 @@ declare global {
 import plausibleTracker from 'plausible-tracker';
 import user from './user.js';
 
+const currentPage = new URL(location.href);
+currentPage.searchParams.set('ref', user.fingerprint || user.uuid);
+
 /**
  * Tracker Pages and Events
  */
 const plausible = plausibleTracker({
     domain: import.meta.env.VITE_PLAUSIBLE_DOMAIN,
     trackLocalhost: import.meta.env.VITE_PLAUSIBLE_LOCALHOST || false,
-    apiHost: import.meta.env.VITE_PLAUSIBLE_API_HOST
-})
-plausible.trackPageview();
+    apiHost: import.meta.env.VITE_PLAUSIBLE_API_HOST,
+    hashMode: true
+});
+plausible.trackPageview({
+    url: currentPage.toString()
+});
+plausible.enableAutoPageviews();
 
 /**
  * Plausible events allowed
@@ -38,7 +45,10 @@ const PLAUSIBLE_EVENTS = {
     durationchange: 'Duration Change',
     timeupdate: 'Time Update',
     display_modal_comments: 'Display Modal Comments',
-    comment_none: 'Comment None'
+    comment_none: 'Comment None',
+    post_reader: 'Post Reader',
+    page_hidden: 'Page Hidden',
+    page_show: 'Page Show'
 }
 
 /**
