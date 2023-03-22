@@ -83,8 +83,18 @@ function _sendPlausible(action: string, data: object) {
     }
 }
 
-/** Dispatch Logger */
-export default (action: string, value = '') => {
+/**
+ * Envia log se o usuário sair ou voltar para a página
+ */
+function _onVisibilityChange() {
+    const action = (document.hidden) ? 'page_hidden' : 'page_show';
+
+    _dispathEvent(action, location.href)
+}
+
+window.addEventListener('visibilitychange', _onVisibilityChange);
+
+function _dispathEvent(action: string, value: string|object = '') {
     const player = {};
 
     
@@ -111,3 +121,6 @@ export default (action: string, value = '') => {
     _sendPipeDream(action, data);
     _sendPlausible(action, data);
 }
+
+/** Dispatch Logger */
+export default _dispathEvent;
