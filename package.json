@@ -24,6 +24,7 @@
     "@fingerprintjs/fingerprintjs": "^3.4.0",
     "@lottiefiles/svelte-lottie-player": "^0.3.0",
     "plausible-tracker": "^0.3.8",
+    "reveal.js": "^4.4.0",
     "sweetalert2": "^11.7.3"
   }
 }
