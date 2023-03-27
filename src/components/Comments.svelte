@@ -4,6 +4,7 @@
   import logger from '../lib/logger';
 
   export let comments = [];
+  export let hiddenList = false;
 
   function writeComment() {
     const comment = document.querySelector('#comment-content') as HTMLTextAreaElement;
@@ -36,14 +37,15 @@
   ])
 </script>
 
+{#if hiddenList === false}
 <div class="comments-list">
   <h3>Comentários Anônimos</h3>
-
+  
   <div>
     {#if !comments.length}
     <p>Seja o(a) primeiro(a) a comentar!</p>
     {/if}
-
+    
     {#each comments as comment,k}
     <div>
       <img src={`https://robohash.org/${k}`} height="32" width="32" alt="Icon people" />
@@ -52,6 +54,7 @@
     {/each}
   </div>
 </div>
+{/if}
 
 <div class="comment-wrapper">
   <h3>Envie um comentário anônimo</h3>
