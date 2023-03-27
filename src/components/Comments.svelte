@@ -60,6 +60,24 @@
 </div>
 
 <style>
+:root {
+  --font-size: 13.3px;
+}
+
+h3, textarea, button {
+  font-size: 18.72px;
+  font-family: 'Prompt', sans-serif;
+}
+
+img {
+  margin: initial;
+}
+
+p {
+  font-size: var(--font-size);
+  margin: 0;
+}
+
 .comment-wrapper {
   grid-column: 2/span 10;
   padding-top: 10px;
@@ -100,6 +118,7 @@
   font-size: smaller;
   gap: 10px;
   margin-bottom: 10px;
+  place-items: center;
   padding: 5px;
 }
 
