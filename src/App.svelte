@@ -3,11 +3,13 @@
   import PageSplash from './pages/Splash.svelte';
   import PageNotFound from './pages/NotFound.svelte';
   import PagePosts from './pages/Posts.svelte';
+  import PageStories from './pages/Stories.svelte';
 
   const pages = {
     '': PageSplash,
     '#videos': PageVideos,
-    '#posts': PagePosts
+    '#posts': PagePosts,
+    '#stories': PageStories
   }
 
   let page = pages[location.hash] ?? PageNotFound;
