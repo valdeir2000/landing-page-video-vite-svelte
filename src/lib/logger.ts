@@ -94,26 +94,10 @@ function _onVisibilityChange() {
 
 window.addEventListener('visibilitychange', _onVisibilityChange);
 
-function _dispathEvent(action: string, value: string|object = '') {
-    const player = {};
-
-    
-    if ('videojs' in window) {
-        const videojsPlayer = window.videojs.getAllPlayers().at(0);
-
-        if (videojsPlayer) {
-            player['video-src'] = videojsPlayer.src();
-            player['video-height'] = videojsPlayer.height();
-            player['video-width'] = videojsPlayer.width();
-            player['video-muted'] = videojsPlayer.muted();
-            player['video-volume'] = videojsPlayer.volume();
-            player['video-paused'] = videojsPlayer.paused();
-        }
-    }
-
+function _dispathEvent(action: string, value: string|object = '', extras: object = {}) {
     const data = {
       ...user,
-      ...player,
+      ...extras,
       action,
       value
     }

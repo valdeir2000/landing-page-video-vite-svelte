@@ -13,6 +13,19 @@
 
   onMount(() => initPlayer());
 
+  function log(action: string, value: string|object = '') {
+    const extra = {
+      'video-src': player.src(),
+      'video-height': player.height(),
+      'video-width': player.width(),
+      'video-muted': player.muted(),
+      'video-volume': player.volume(),
+      'video-paused': player.paused(),
+    };
+
+    logger(action, value, extra);
+  }
+
   function initPlayer() {
     const playerWrapperRect = document.querySelector('#player-wrapper').getBoundingClientRect();
 
@@ -31,14 +44,14 @@
     });
 
     /** Save log */
-    player.on('loadstart', () => logger('loadstart'));
-    player.on('abort', () => logger('abort'));
-    player.on('error', () => logger('error'));
-    player.on('playing', () => logger('playing'));
-    player.on('seeked', () => logger('seeked', player.currentTime()));
-    player.on('durationchange', () => logger('durationchange'));
-    player.on('play', () => logger('play', player.currentTime()));
-    player.on('pause', () => logger('pause', player.currentTime()));
+    player.on('loadstart', () => log('loadstart'));
+    player.on('abort', () => log('abort'));
+    player.on('error', () => log('error'));
+    player.on('playing', () => log('playing'));
+    player.on('seeked', () => log('seeked', player.currentTime()));
+    player.on('durationchange', () => log('durationchange'));
+    player.on('play', () => log('play', player.currentTime()));
+    player.on('pause', () => log('pause', player.currentTime()));
 
     /** Save log */
     player.on('ended', () => {
