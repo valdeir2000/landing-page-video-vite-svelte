@@ -37,6 +37,9 @@
 
 <div class="reveal">
   <div class="slides">
+    <section>
+      <p class="center-hv">Arraste para o lado</p>
+    </section>
     {#each Stories as story}
     <section data-transition="slide-in fade-out"><img data-src={story} alt="Figure" width="1080" height="1920"></section>
     {/each}
@@ -51,6 +54,13 @@
 <style>
 :root {
   --r-heading3-size: 1.17em !important;
+}
+
+.center-hv {
+  display: flex;
+  height: 100%;
+  place-content: center;
+  place-items: center;
 }
 
 .reveal {
