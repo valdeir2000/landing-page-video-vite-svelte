@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "vite build --mode production",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "deploy:aws": "cd dist/; aws s3 cp . s3://haftasarden-temp/ --acl public-read --cache-control no-store --recursive"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
