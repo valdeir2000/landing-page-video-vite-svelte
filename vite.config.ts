@@ -14,6 +14,9 @@ export default defineConfig({
       injectRegister: 'inline',
       devOptions: {
         enabled: true
+      },
+      injectManifest: {
+        injectionPoint: undefined
       }
     })
   ],
