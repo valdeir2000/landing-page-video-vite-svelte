@@ -15,7 +15,7 @@
     }
   })
   .then((result) => {
-    if (result.isConfirmed) window.location.hash = 'videos';
+    if (result.isConfirmed) window.location.hash = import.meta.env.VITE_HOME_PAGE;
     else window.location.href = import.meta.env.VITE_URL_REDIRECT;
   })
 </script>
