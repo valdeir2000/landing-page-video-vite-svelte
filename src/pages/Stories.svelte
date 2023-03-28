@@ -12,15 +12,20 @@
       controlsTutorial: true,
       controlsLayout: 'edges',
       slideNumber: 'c/t',
+      center: true,
       disableLayout: true,
     });
 
     sliders.on('slidechanged', (ev: any) => {
-      if (Stories[ev.indexh]) logger('StoriesView', `Visualizou o story ${Stories[ev.indexh]}`);
+      if (Stories[ev.indexh - 1]) logger('stories_view', `Visualizou o story ${Stories[ev.indexh - 1]}`);
+
+      if ((ev.indexh + 1) == sliders.getTotalSlides()) {
+        logger('stories_view', `Visualizou a caixa de comentário no story`);
+      }
     })
 
     sliders.initialize().then(() => {
-      if (Stories[0]) logger('StoriesView', `Visualizou o story ${Stories[0]}`);
+      if (Stories[0]) logger('stories_view', 'Visualizou o slide inicial');
     })
   });
 
