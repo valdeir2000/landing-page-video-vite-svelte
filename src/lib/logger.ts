@@ -50,6 +50,8 @@ const PLAUSIBLE_EVENTS = {
     page_hidden: 'Page Hidden',
     page_show: 'Page Show',
     stories_view: 'Stories View'
+    stories_view: 'Stories View'
+    stories_view: 'Stories View'
 }
 
 /**
