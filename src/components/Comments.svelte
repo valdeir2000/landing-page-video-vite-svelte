@@ -6,10 +6,10 @@
   export let comments = [];
   export let hiddenList = false;
 
+  let comment = '';
+
   function writeComment() {
-    const comment = document.querySelector('#comment-content') as HTMLTextAreaElement;
-    
-    logger('Comment', comment.value);
+    logger('Comment', comment);
 
     Swal.fire({
       title: 'Enviado!!',
@@ -18,10 +18,10 @@
       confirmButtonText: 'Ok'
     })
 
-    localStorage.setItem(`comment-${new Date().getTime()}`, comment.value);
-    comments[comments.length] = comment.value;
+    localStorage.setItem(`comment-${new Date().getTime()}`, comment);
+    comments[comments.length] = comment;
 
-    comment.value = '';
+    comment = '';
   }
 
   function loadComments() {
@@ -58,7 +58,8 @@
 
 <div class="comment-wrapper">
   <h3>Envie um comentário anônimo</h3>
-  <textarea name="comment-content" id="comment-content" on:keydown={(e) => e.key === '13' && writeComment()}></textarea>
+  <div id="comment-content-fake" contenteditable="true" bind:textContent={comment}></div>
+  <textarea name="comment-content" id="comment-content" bind:value={comment}></textarea>
   <button type="button" class="plausible-event-name=Comment" on:click={writeComment}>Enviar</button>
 </div>
 
@@ -67,7 +68,7 @@
   --font-size: 13.3px;
 }
 
-h3, textarea, button {
+h3, textarea, button, #comment-content-fake {
   font-size: 18.72px;
   font-family: 'Prompt', sans-serif;
 }
@@ -87,13 +88,20 @@ p {
   width: 100%;
 }
 
-.comment-wrapper textarea {
+.comment-wrapper textarea, #comment-content-fake {
+  background: #FFF;
   border-color: #3fc3c4;
+  color: #000;
   font-weight: 200;
   height: 203.906px;
   outline-color: #3fc3c4;
   padding: 10px;
+  text-align: left;
   width: 100%;
+}
+
+.comment-wrapper textarea {
+  display: none;
 }
 
 .comment-wrapper button {
