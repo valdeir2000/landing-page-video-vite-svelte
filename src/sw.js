@@ -6,10 +6,45 @@ const precachedAssets = [
     '/vite.svg'
 ];
 
-/* 
+const proxy_plausible = 'https://aplauso.valdeir-webdesign.workers.dev';
+
+/**
+ * 
+ * @param {ReadableStream} value 
+ */
+async function readerStream(value) {
+    if (!value) {
+        return null;
+    }
+
+    const reader = value.getReader();
+    let body = [];
+
+    return new Promise((resolve) => {
+        const read = async () => {
+            const { done, value } = await reader.read();
+
+            if (done) {
+                resolve( new TextDecoder().decode(new Uint8Array(body)) );
+                return;
+            }
+
+            body = [...body, ...value];
+
+            read();
+        }
+
+        read();
+    })
+}
+
+/**
  * Salva assets em cache
+ * 
+ * @module
  */
 self.addEventListener('install', (ev) => {
+    // @ts-ignore
     self.skipWaiting();
 
     ev.waitUntil(caches.open(cacheName).then((cache) => {
@@ -18,11 +53,15 @@ self.addEventListener('install', (ev) => {
 });
 
 self.addEventListener("activate", (event) => {
+    // @ts-ignore
     event.waitUntil(clients.claim());
 });
 
-/* 
+/**
  * Middleware
+ * 
+ * @module
+ * @param {FetchEvent} ev
  */
 self.addEventListener('fetch', async (ev) => {
     const url = new URL(ev.request.url);
@@ -35,6 +74,17 @@ self.addEventListener('fetch', async (ev) => {
             cache.put(url.toString(), response.clone());
             return response;
         })
+    }
+
+    if (url.hostname === 'analytics.realitybr.app') {
+        console.log(ev.request.method)
+
+        const request = new Request(`${proxy_plausible}${url.pathname}`, {
+            method: 'POST',
+            body: await readerStream(ev.request.body)
+        });
+
+        return ev.respondWith(fetch(request));
     }
 
     if (url.pathname.startsWith('/progressive/')) {
