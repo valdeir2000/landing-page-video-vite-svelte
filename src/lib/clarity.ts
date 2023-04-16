@@ -13,7 +13,7 @@ export default () => {
 
     const js = document.createElement('script');
     js.async = true;
-    js.src = `https://claridade.valdeir-webdesign.workers.dev/tag/${import.meta.env.VITE_CLARITY_CODE}`;
+    js.src = `https://claridade.valdeir-webdesign.workers.dev/www.clarity.ms/tag/${import.meta.env.VITE_CLARITY_CODE}`;
     const firstScript = document.querySelector('script');
     firstScript?.parentNode?.insertBefore(js, firstScript);
 }
