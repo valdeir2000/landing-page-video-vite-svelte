@@ -15,9 +15,10 @@ currentPage.searchParams.set('ref', user.fingerprint || user.uuid);
 /**
  * Tracker Pages and Events
  */
+console.log()
 const plausible = plausibleTracker({
     domain: import.meta.env.VITE_PLAUSIBLE_DOMAIN,
-    trackLocalhost: import.meta.env.VITE_PLAUSIBLE_LOCALHOST || false,
+    trackLocalhost: import.meta.env.VITE_PLAUSIBLE_LOCALHOST === 'true' || import.meta.env.VITE_PLAUSIBLE_LOCALHOST == 1,
     apiHost: import.meta.env.VITE_PLAUSIBLE_API_HOST,
     hashMode: true
 });
