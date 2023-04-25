@@ -27,8 +27,9 @@
       if (story) logger('stories_view', `Visualizou o story ${story?.title ?? story?.src}`);
       
       /* @ts-ignore */
-      if (story.type === 'quiz') {
+      if (story.type === 'quiz' && !story.answered) {
         delete story.type;
+        delete story.answered;
 
         Swal.fire(story)
           .then((res) => {
@@ -49,6 +50,11 @@
 
             logger('stories_answer', `Respondeu o quiz ${story?.title ?? story?.src} com ${result}`);
             sliders.next();
+            return result;
+          })
+          .then((res) => {
+            /* @ts-ignored */
+            Stories[ev.indexh - 1].answered = res;
           })
       }
 
@@ -98,8 +104,9 @@
             src="https://assets7.lottiefiles.com/packages/lf20_z0b82vos.json"
             autoplay
             loop
+            controls={false}
+            controlsLayout={[]}
             background="transparent"
-            class="lottie-player"
             height="100"
             width="100"
           />
@@ -108,14 +115,23 @@
 
         <!-- svelte-ignore a11y-media-has-caption -->
         <video
-          src="https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/04/file_example_MP4_480_1_5MG.mp4"
+          src={story.src}
           controls
           controlslist="nodownload nofullscreen noremoteplayback"
         ></video>
       </p>
     </section>
     {:else if story.type === 'quiz'}
-    <section data-transition="slide-in fade-out"><p></p></section>
+    <section data-transition="slide-in fade-out">
+      <!-- @ts-ignore -->
+      {#if story.answered}
+      <div class="center-hv">
+        <p><b>Quiz respondido</b></p>
+        <p><b>Pergunta:</b> <span>{story.html}</span></p>
+        <p class="fragment"><b>Resposta:</b> {story.answered}</p>
+      </div>
+      {/if}
+    </section>
     {/if}
     {/each}
     <section data-transition="slide-in fade-out">
@@ -148,6 +164,7 @@ video::-webkit-media-controls-fullscreen-button {
 
 .center-hv {
   display: flex;
+  flex-direction: column;
   height: 100%;
   place-content: center;
   place-items: center;
