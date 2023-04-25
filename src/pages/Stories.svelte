@@ -65,7 +65,19 @@
   onDestroy(() => {
     document.documentElement.classList.remove('reveal-full-page');
     document.body.classList.remove('reveal-viewport');
-  })
+  });
+
+  let isPlaying = false;
+
+  function togglePlayPauseVideo(e: MouseEvent|KeyboardEvent) {
+    let el = e.target as HTMLElement;
+    /* @ts-ignore */
+    if (el.tagName !== 'p') el = e.target.closest('p');
+    const video = el.querySelector('video');
+    if (!video) return;
+    video.paused ? video.play() : video.pause();
+    isPlaying = !video.paused;
+  }
 </script>
 
 <div class="reveal">
@@ -73,7 +85,35 @@
     <section>
       <p class="center-hv">Arraste para o lado</p>
     </section>
+
     {#each Stories as story}
+    {#if story.type === 'image'}
+    <section data-transition="slide-in fade-out"><img data-src={story.src} alt="Figure" width="1080" height="1920"></section>
+    {:else if story.type === 'video'}
+    <section data-transition="slide-in fade-out">
+      <p class="center-hv" on:click={togglePlayPauseVideo} on:keydown={togglePlayPauseVideo}>
+        {#if isPlaying === false}
+        <span class="btn-play">
+          <LottiePlayer
+            src="https://assets7.lottiefiles.com/packages/lf20_z0b82vos.json"
+            autoplay
+            loop
+            background="transparent"
+            class="lottie-player"
+            height="100"
+            width="100"
+          />
+        </span>
+        {/if}
+
+        <!-- svelte-ignore a11y-media-has-caption -->
+        <video
+          src="https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/04/file_example_MP4_480_1_5MG.mp4"
+          controls
+          controlslist="nodownload nofullscreen noremoteplayback"
+        ></video>
+      </p>
+    </section>
     {:else if story.type === 'quiz'}
     <section data-transition="slide-in fade-out"><p></p></section>
     {/if}
@@ -89,6 +129,21 @@
 <style>
 :root {
   --r-heading3-size: 1.17em !important;
+}
+
+video {
+  height: 100vh;
+  pointer-events: none;
+  max-width: 100%;
+}
+
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-fullscreen-button {
+  display: none;
+}
+
+.btn-play {
+  position: absolute;
 }
 
 .center-hv {
