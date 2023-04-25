@@ -1,0 +1,35 @@
+[
+    /**
+     * Imagem
+     */
+    {
+        "type": "image",
+        "src": "/stories/Temp-1.jpg"
+    },
+    /**
+     * Quizz
+     */
+    {
+        "type": "quiz",
+        "title": "Pergunta",
+        "html": "Pergunta feita aqui",
+        "confirmButtonText": "Sim",
+        "denyButtonText": "Não",
+        "showDenyButton": true,
+        "answered": false,
+        
+        "cancelButtonText": "Cancelar",
+        "showCancelButton": false,
+        
+        "allowOutsideClick": false,
+        "allowEscapeKey": false,
+        "allowEnterKey": false
+    },
+    /**
+     * Vídeo
+     */
+    {
+        "type": "video",
+        "src": "/progressive/Gizelly.mp4"
+    }
+]
