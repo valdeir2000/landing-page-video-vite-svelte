@@ -11,19 +11,13 @@
      */
     {
         "type": "quiz",
-        "title": "Pergunta",
-        "html": "Pergunta feita aqui",
-        "confirmButtonText": "Sim",
-        "denyButtonText": "Não",
-        "showDenyButton": true,
+        "title": "Pergunta #1",
+        "html": "Escreva aqui sua pergunta",
+        "confirm": "Sim",
+        "deny": "Não",
+        "cancel": "Talvez",
         "answered": false,
-        
-        "cancelButtonText": "Cancelar",
-        "showCancelButton": false,
-        
-        "allowOutsideClick": false,
-        "allowEscapeKey": false,
-        "allowEnterKey": false
+        "required": true
     },
     /**
      * Vídeo
