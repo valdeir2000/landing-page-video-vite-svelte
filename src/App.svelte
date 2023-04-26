@@ -1,22 +1,21 @@
-<script>
-  import PageVideos from './pages/Videos.svelte';
-  import PageSplash from './pages/Splash.svelte';
+<script lang="ts">
+  import SplashFound from './pages/Splash.svelte';
   import PageNotFound from './pages/NotFound.svelte';
-  import PagePosts from './pages/Posts.svelte';
-  import PageStories from './pages/Stories.svelte';
 
   const pages = {
-    '': PageSplash,
-    '#videos': PageVideos,
-    '#posts': PagePosts,
-    '#stories': PageStories
+    '': () => SplashFound,
+    '#videos':  () => import('./pages/Videos.svelte').then(m => m.default),
+    '#posts':  () => import('./pages/Posts.svelte').then(m => m.default),
+    '#stories':  () => import('./pages/Stories.svelte').then(m => m.default)
   }
 
-  let page = pages[location.hash] ?? PageNotFound;
+  let page = SplashFound;
 
-  function hashChange() {
-    page = pages[location.hash] ?? PageNotFound;
+  async function hashChange() {
+    page = (!!pages[location.hash]) ? await pages[location.hash]() : PageNotFound;
   }
+
+  hashChange();
 </script>
 
 <svelte:window on:hashchange={hashChange} />
