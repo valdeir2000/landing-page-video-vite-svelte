@@ -7,9 +7,87 @@
   import Comments from '../components/Comments.svelte';
   import 'reveal.js/dist/reveal.css';
   import 'reveal.js/dist/theme/league.css';
-  import Swal from 'sweetalert2';
+  import Swal, { type SweetAlertOptions } from 'sweetalert2';
+
+  type StoryQuiz = {
+    type: "quiz",
+    title: string,
+    html: string,
+    confirm: string,
+    deny?: string,
+    cancel?: string,
+    answered: boolean|string,
+    required: boolean
+  }
 
   let sliders: any;
+
+  /**
+   * Gera um dialogo com SweetAlert2 para exibição do quiz
+   * 
+   * @param story
+   * @param index
+   */
+  function mountDialogForQuizzes(story: StoryQuiz, index: number) {
+    let opts: SweetAlertOptions = {
+      title: story.title,
+      html: story.html,
+      confirmButtonText: story.confirm ?? 'OK',
+      icon: 'question'
+    }
+
+    if (story.deny) {
+      opts = Object.assign(opts, {
+        denyButtonText: story.deny,
+        showDenyButton: true
+      })
+    }
+
+    if (story.cancel) {
+      opts = Object.assign(opts, {
+        cancelButtonText: story.cancel,
+        showCancelButton: true
+      })
+    }
+
+    if (story.required) {
+      opts = Object.assign(opts, {
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+          return true;
+        }
+      })
+    }
+
+    Swal.fire(opts)
+      .then((res) => {
+        if (res.isConfirmed) Swal.fire({ icon: 'success' })
+        else if (res.isDenied) Swal.fire({ icon: 'error' })
+        else if (res.isDismissed) Swal.fire({ icon: 'info' })
+        return res;
+      })
+      .then((res) => {
+        let result = '';
+
+        if (res.isConfirmed) {
+          result = story.confirm;
+        } else if (res.isDenied) {
+          result = story.deny;
+        } else {
+          result = story.cancel ?? 'Não respondeu o quiz';
+        }
+
+        logger('stories_answer', `Respondeu o quiz "${story.title}" com "${result}"`);
+        sliders.next();
+        return result;
+      })
+      .then((res) => {
+        (Stories[index] as StoryQuiz).answered = res;
+      })
+  }
 
   onMount(() => {
     sliders = new Reveal({
@@ -28,34 +106,7 @@
       
       /* @ts-ignore */
       if (story.type === 'quiz' && !story.answered) {
-        delete story.type;
-        delete story.answered;
-
-        Swal.fire(story)
-          .then((res) => {
-            if (res.isConfirmed) Swal.fire({ icon: 'success' })
-            else if (res.isDenied) Swal.fire({ icon: 'error' })
-            return res;
-          })
-          .then((res) => {
-            let result = '';
-
-            if (res.isConfirmed) {
-              result = story.confirmButtonText;
-            } else if (res.isDenied) {
-              result = story.denyButtonText;
-            } else {
-              result = story.cancelButtonText ?? 'Não respondeu o quiz';
-            }
-
-            logger('stories_answer', `Respondeu o quiz ${story?.title ?? story?.src} com ${result}`);
-            sliders.next();
-            return result;
-          })
-          .then((res) => {
-            /* @ts-ignored */
-            Stories[ev.indexh - 1].answered = res;
-          })
+        mountDialogForQuizzes(story as StoryQuiz, ev.indexh - 1);
       }
 
       if ((ev.indexh + 1) == sliders.getTotalSlides()) {
